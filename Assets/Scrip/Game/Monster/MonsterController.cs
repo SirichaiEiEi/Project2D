@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MonsterController : MonoBehaviour
 {
+    [SerializeField] FloatingHealthBar healthBar;
     public float moveSpeed = 5f; // ความเร็วในการเคลื่อนที่ของมอนสเตอร์
     public int damageAmount = 1; // จำนวนดาเมทที่มอนสเตอร์จะโจมตีผู้เล่น
     public int maxHP = 100; // HP สูงสุดของมอนสเตอร์
@@ -13,11 +14,17 @@ public class MonsterController : MonoBehaviour
     private Rigidbody2D rb;
     private bool isPlayerActive = true; // ตัวแปรสำหรับตรวจสอบว่าผู้เล่นยังใช้งานอยู่หรือไม่
 
+    private void Awake()
+    {
+        healthBar = GetComponentInChildren<FloatingHealthBar>();
+
+    }
     private void Start()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
         currentHP = maxHP;
+        healthBar.UpdateHealthBar(currentHP, maxHP);
     }
 
     private void Update()
@@ -35,6 +42,7 @@ public class MonsterController : MonoBehaviour
     public void TakeDamage(int damageAmount)
     {
         currentHP -= damageAmount;
+        healthBar.UpdateHealthBar(currentHP, maxHP);
 
         Debug.Log("มอนสเตอร์ได้รับดาเมท: " + damageAmount);
 
