@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
         Vector2 moveDirection = new Vector2(moveX, moveY).normalized;
         rb.velocity = moveDirection * moveSpeed;
 
+        LookAtMouse(); // เพิ่มฟังก์ชัน LookAtMouse() เพื่อหมุนตามทิศที่เคลื่อนที่
+
         if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
         {
             Shoot();
@@ -43,15 +45,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damageAmount)
+    // ฟังก์ชัน LookAtMouse() ที่ใช้ในการหมุนตามเม้าส์
+    private void LookAtMouse()
     {
-        currentHP -= damageAmount;
-    }
-
-    private void Die()
-    {
-        gameObject.SetActive(false);
-        // สามารถเพิ่มโค้ดเพื่อจัดการกับการสิ้นสุดเกมตามต้องการ
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition = mainCamera.ScreenToWorldPoint(mousePosition);
+        Vector2 lookDirection = mousePosition - transform.position;
+        float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+        rb.rotation = angle;
     }
 
     private void Shoot()
@@ -66,6 +67,15 @@ public class PlayerController : MonoBehaviour
             bulletController.SetTarget(mousePosition);
         }
     }
+
+    public void TakeDamage(int damageAmount)
+    {
+        currentHP -= damageAmount;
+    }
+
+    private void Die()
+    {
+        gameObject.SetActive(false);
+        // สามารถเพิ่มโค้ดเพื่อจัดการกับการสิ้นสุดเกมตามต้องการ
+    }
 }
-
-

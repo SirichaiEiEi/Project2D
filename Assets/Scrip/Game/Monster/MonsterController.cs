@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MonsterController : MonoBehaviour
 {
@@ -17,7 +15,6 @@ public class MonsterController : MonoBehaviour
     private void Awake()
     {
         healthBar = GetComponentInChildren<FloatingHealthBar>();
-
     }
     private void Start()
     {
@@ -33,6 +30,10 @@ public class MonsterController : MonoBehaviour
         {
             Vector2 direction = playerTransform.position - transform.position;
             rb.velocity = direction.normalized * moveSpeed;
+
+            // หมุนให้มอนสเตอร์หันไปทางทิศที่เคลื่อนที่
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         }
         else
         {
@@ -70,14 +71,8 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-
     public void SetPlayerActive(bool isActive)
     {
         isPlayerActive = isActive;
     }
 }
-
-
-
-
-
