@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] FloatingHealthBar healthBar1;
     public float moveSpeed = 5f;
+    public TMP_Text hpText;
     public int maxHP = 100; // HP สูงสุดของผู้เล่น
     public float fireRate = 0.2f; // อัตราการยิง (วินาทีต่อกระสุน)
     public GameObject bulletPrefab; // โปรเฟปฟรีฟาบทหน้ากระสุน
@@ -16,10 +19,15 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Camera mainCamera;
 
+    private void Awake()
+    {
+        healthBar1 = GetComponentInChildren<FloatingHealthBar>();
+    }
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         currentHP = maxHP;
+        healthBar1.UpdateHealthBar(currentHP, maxHP);
         mainCamera = Camera.main;
     }
 
@@ -71,6 +79,8 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int damageAmount)
     {
         currentHP -= damageAmount;
+        healthBar1.UpdateHealthBar(currentHP, maxHP);
+        hpText.text = currentHP + " / " + maxHP;
     }
 
     private void Die()

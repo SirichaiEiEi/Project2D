@@ -4,7 +4,7 @@ public class MonsterController : MonoBehaviour
 {
     [SerializeField] FloatingHealthBar healthBar;
     public float moveSpeed = 5f; // ความเร็วในการเคลื่อนที่ของมอนสเตอร์
-    public int damageAmount = 1; // จำนวนดาเมทที่มอนสเตอร์จะโจมตีผู้เล่น
+    public int damageAmount = 10; // จำนวนดาเมทที่มอนสเตอร์จะโจมตีผู้เล่น
     public int maxHP = 100; // HP สูงสุดของมอนสเตอร์
     public int currentHP; // HP ปัจจุบันของมอนสเตอร์
 
@@ -33,7 +33,7 @@ public class MonsterController : MonoBehaviour
 
             // หมุนให้มอนสเตอร์หันไปทางทิศที่เคลื่อนที่
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+            transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
         }
         else
         {
