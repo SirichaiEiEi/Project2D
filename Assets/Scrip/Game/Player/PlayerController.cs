@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -85,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
     private void Die()
     {
-        gameObject.SetActive(false);
+        SceneManager.LoadSceneAsync(2);
         // สามารถเพิ่มโค้ดเพื่อจัดการกับการสิ้นสุดเกมตามต้องการ
     }
 }
