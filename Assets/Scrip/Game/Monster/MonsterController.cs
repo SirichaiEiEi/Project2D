@@ -1,21 +1,25 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class MonsterController : MonoBehaviour
 {
     [SerializeField] FloatingHealthBar healthBar;
-    public float moveSpeed = 5f; // ความเร็วในการเคลื่อนที่ของมอนสเตอร์
-    public int damageAmount = 10; // จำนวนดาเมทที่มอนสเตอร์จะโจมตีผู้เล่น
-    public int maxHP = 100; // HP สูงสุดของมอนสเตอร์
-    public int currentHP; // HP ปัจจุบันของมอนสเตอร์
+    public float moveSpeed = 5f;
+    public int damageAmount = 10;
+    public int maxHP = 100;
+    public int currentHP;
 
     private Transform playerTransform;
     private Rigidbody2D rb;
-    private bool isPlayerActive = true; // ตัวแปรสำหรับตรวจสอบว่าผู้เล่นยังใช้งานอยู่หรือไม่
+    private bool isPlayerActive = true;
+    public float rotationSpeed = 5f;
 
     private void Awake()
     {
         healthBar = GetComponentInChildren<FloatingHealthBar>();
     }
+
     private void Start()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
@@ -28,18 +32,25 @@ public class MonsterController : MonoBehaviour
     {
         if (playerTransform != null && isPlayerActive)
         {
-            Vector2 direction = playerTransform.position - transform.position;
+            Vector2 direction = playerTransform.position - (Vector3)rb.position;
             rb.velocity = direction.normalized * moveSpeed;
 
-            // หมุนให้มอนสเตอร์หันไปทางทิศที่เคลื่อนที่
+            // หมุนให้มอนสเตอร์หันไปทางผู้เล่น
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
+            rb.rotation = Mathf.LerpAngle(rb.rotation, angle - 90f, Time.deltaTime * rotationSpeed);
+
+            // ตรวจสอบสถานะของการเคลื่อนที่ หากไม่มีการเคลื่อนที่ให้หยุดการเคลื่อนที่
+            if (direction.sqrMagnitude < 0.1f)
+            {
+                rb.velocity = Vector2.zero;
+            }
         }
         else
         {
-            rb.velocity = Vector2.zero; // หยุดเคลื่อนที่เมื่อผู้เล่นหายไป
+            rb.velocity = Vector2.zero;
         }
     }
+
     public void TakeDamage(int damageAmount)
     {
         currentHP -= damageAmount;
@@ -55,7 +66,6 @@ public class MonsterController : MonoBehaviour
 
     private void Die()
     {
-        // โค้ดสำหรับกระทำเมื่อมอนสเตอร์ตาย
         Destroy(gameObject);
     }
 
@@ -76,3 +86,4 @@ public class MonsterController : MonoBehaviour
         isPlayerActive = isActive;
     }
 }
+
