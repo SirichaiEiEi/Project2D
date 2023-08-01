@@ -111,7 +111,19 @@ public class MonsterController : MonoBehaviour
 
         DealDamageToPlayer();
 
-
+        // ตรวจสอบระยะห่างระหว่างมอนสเตอร์และผู้เล่นอีกครั้ง
+        // หากยังคงอยู่ใกล้กันให้ทำดาเมทต่อเนื่อง โดยเริ่ม Coroutine AttackCoroutine ใหม่
+        Vector2 direction = playerTransform.position - (Vector3)rb.position;
+        if (direction.sqrMagnitude < 1f && isPlayerActive)
+        {
+            StartCoroutine(AttackCoroutine());
+        }
+        else
+        {
+            // ถ้าผู้เล่นได้ห่างออกไปแล้วให้หยุดการโจมตีและเล่น Animation Idle
+            isAttacking = false;
+            animator.SetTrigger("Idle");
+        }
     }
 
     public void DealDamageToPlayer()
