@@ -5,19 +5,22 @@ using UnityEngine;
 public class MonsterController : MonoBehaviour
 {
     [SerializeField] FloatingHealthBar healthBar;
-    public float moveSpeed = 5f;
+    public float moveSpeed = 1f;
     public int damageAmount = 10;
     public int maxHP = 100;
     public int currentHP;
 
     private Transform playerTransform;
     private Rigidbody2D rb;
+    private Animator animator;
     private bool isPlayerActive = true;
     public float rotationSpeed = 5f;
+    private bool isAttacking = false;
 
     private void Awake()
     {
         healthBar = GetComponentInChildren<FloatingHealthBar>();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -76,8 +79,48 @@ public class MonsterController : MonoBehaviour
             PlayerController playerController = collision.GetComponent<PlayerController>();
             if (playerController != null)
             {
-                playerController.TakeDamage(damageAmount);
+                // ทำการโจมตีผู้เล่น
+                if (!isAttacking)
+                {
+                    StartCoroutine(AttackCoroutine());
+                }
             }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            // หยุดเล่น Animation และกำหนดให้ไม่ทำการโจมตีอีก
+            animator.SetTrigger("Idle");
+            isAttacking = false;
+        }
+    }
+
+    private IEnumerator AttackCoroutine()
+    {
+        // เริ่มโจมตี
+        isAttacking = true;
+
+        // เล่น Animation Attack
+        animator.SetTrigger("Attack");
+
+        // รอจนกว่า animation โจมตีจะเสร็จสิ้น
+        yield return new WaitForSeconds(1f); // รอเป็นเวลา 1 วินาที
+
+        DealDamageToPlayer();
+
+
+    }
+
+    public void DealDamageToPlayer()
+    {
+        // โจมตีผู้เล่น
+        PlayerController playerController = playerTransform.GetComponent<PlayerController>();
+        if (playerController != null)
+        {
+            playerController.TakeDamage(damageAmount);
         }
     }
 
@@ -86,4 +129,3 @@ public class MonsterController : MonoBehaviour
         isPlayerActive = isActive;
     }
 }
-
