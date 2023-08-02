@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = moveDirection * moveSpeed;
 
         LookAtMouse(); // เพิ่มฟังก์ชัน LookAtMouse() เพื่อหมุนตามทิศที่เคลื่อนที่
+        healthBar1.UpdateHealthBar(currentHP, maxHP);
 
         if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
         {
@@ -75,6 +76,17 @@ public class PlayerController : MonoBehaviour
         {
             bulletController.SetTarget(mousePosition);
         }
+    }
+
+    public void IncreaseHealth(int amount)
+    {
+        currentHP += amount;
+        currentHP = Mathf.Clamp(currentHP, 0, maxHP);
+    }
+
+    public void FillHealth()
+    {
+        currentHP = maxHP; // เพิ่มเลือดให้เต็ม
     }
 
     public void TakeDamage(int damageAmount)
