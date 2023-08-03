@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     public TMP_Text hpText;
     public int maxHP = 100; // HP สูงสุดของผู้เล่น
-    public float fireRate = 0.2f; // อัตราการยิง (วินาทีต่อกระสุน)
+    public float fireRate = 0.001f; // อัตราการยิง (วินาทีต่อกระสุน)
     public GameObject bulletPrefab; // โปรเฟปฟรีฟาบทหน้ากระสุน
     public Transform firePoint; // ตำแหน่งที่กระสุนจะถูกสร้าง
 

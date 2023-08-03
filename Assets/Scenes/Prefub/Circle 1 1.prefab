@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   destroyDelay: 5
+  hitEffect: {fileID: 1898863950549090774, guid: dd9f440a108be204cb7d66848c4971fa, type: 3}
 --- !u!50 &2787923742965243476
 Rigidbody2D:
   serializedVersion: 4
@@ -132,7 +133,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
