@@ -15,6 +15,7 @@ public class DropBox : MonoBehaviour
             int randomValue = Random.Range(0, 100);
             if (randomValue < dropChance)
             {
+
                 DropItem(); // ถ้าความน่าจะเป็นเป็นไปตามที่กำหนดให้ดรอปไอเท็ม
             }
 

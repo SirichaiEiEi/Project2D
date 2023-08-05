@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] FloatingHealthBar healthBar1;
+    public float ClipLength = 1f;
+    public GameObject AudioClip;
     public float moveSpeed = 5f;
     public TMP_Text hpText;
     public int maxHP = 100; // HP สูงสุดของผู้เล่น
@@ -26,6 +28,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
+        AudioClip.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
         currentHP = maxHP;
         healthBar1.UpdateHealthBar(currentHP, maxHP);
@@ -45,6 +48,8 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
         {
+            AudioClip.SetActive(true);
+
             Shoot();
             nextFireTime = Time.time + fireRate;
         }
@@ -76,6 +81,7 @@ public class PlayerController : MonoBehaviour
         {
             bulletController.SetTarget(mousePosition);
         }
+
     }
 
     public void IncreaseHealth(int amount)

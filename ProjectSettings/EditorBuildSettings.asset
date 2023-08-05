@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/EndGame.unity
     guid: 02ada224537a05e408792215bd7a2ad5
+  - enabled: 1
+    path: Assets/Madow.unity
+    guid: 7d5f61369bf00ac45a28f9ae9ba54c3e
   m_configObjects: {}
