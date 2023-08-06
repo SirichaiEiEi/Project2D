@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     public float fireRate = 0.001f; // อัตราการยิง (วินาทีต่อกระสุน)
     public GameObject bulletPrefab; // โปรเฟปฟรีฟาบทหน้ากระสุน
     public Transform firePoint; // ตำแหน่งที่กระสุนจะถูกสร้าง
+    public Transform muzzle;
+    [SerializeField] private GameObject muzzsleFlash;
 
     public int currentHP; // HP ปัจจุบันของผู้เล่น
     private float nextFireTime; // เวลาถัดไปที่สามารถยิงได้
@@ -51,6 +53,7 @@ public class PlayerController : MonoBehaviour
             AudioClip.SetActive(true);
 
             Shoot();
+            AudioClip.SetActive(false);
             nextFireTime = Time.time + fireRate;
         }
 
@@ -74,6 +77,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0f;
+        Vector2 muzzlePos = new Vector2(muzzle.position.x, muzzle.position.y);
 
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         BulletController bulletController = bullet.GetComponent<BulletController>();
@@ -81,6 +85,7 @@ public class PlayerController : MonoBehaviour
         {
             bulletController.SetTarget(mousePosition);
         }
+        Instantiate(muzzsleFlash, muzzle.position, muzzle.rotation);
 
     }
 

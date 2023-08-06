@@ -7,7 +7,6 @@ public class BulletController : MonoBehaviour
     public float speed = 10f; // ความเร็วของกระสุน
     public float destroyDelay = 5f; // เวลาที่เกิดกระสุน (วินาที)
     public GameObject hitEffect;
-
     private Vector3 targetPosition;
     private int damageAmount; // จำนวนดาเมทที่กระสุนจะส่งให้มอนสเตอร์
     private Rigidbody2D rb;
