@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MonsterSpawner : MonoBehaviour
 {
     public GameObject monsterPrefab; // โปรเฟปฟรีฟาบทหน้าสร้างมอนสเตอร์
+    public GameObject randomBox;
+    public TMP_Text point;
     public float spawnInterval = 5f; // เวลาที่ระหว่างการเกิดมอนสเตอร์ (วินาที)
     public float spawnRadius = 10f; // รัศมีเกิดมอนสเตอร์ (หน่วย)
     private int monstersKilled = 0;
+    private int points = 0;
 
     private Transform playerTransform;
     private bool isPlayerActive = true; // ตัวแปรสำหรับตรวจสอบว่าผู้เล่นยังใช้งานอยู่หรือไม่
@@ -16,6 +20,10 @@ public class MonsterSpawner : MonoBehaviour
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         InvokeRepeating("SpawnMonster", spawnInterval, spawnInterval);
+    }
+    private void Update()
+    {
+        point.text = points+ "";
     }
 
     private void SpawnMonster()
@@ -28,11 +36,13 @@ public class MonsterSpawner : MonoBehaviour
         Vector2 randomPosition = Random.insideUnitCircle * spawnRadius;
         Vector3 spawnPosition = transform.position + new Vector3(randomPosition.x, randomPosition.y, 0f);
         Instantiate(monsterPrefab, spawnPosition, Quaternion.identity);
+        Instantiate(randomBox, spawnPosition, Quaternion.identity);
     }
 
     public void MonsterKilled()
     {
         monstersKilled++;
+        points++;
         if (monstersKilled >= 10)
         {
             // เพิ่มอัตราการเกิดมอนสเตอร์ เช่น อาจเพิ่มเป็นสองเท่า
