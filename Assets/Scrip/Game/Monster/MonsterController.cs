@@ -69,6 +69,13 @@ public class MonsterController : MonoBehaviour
 
     private void Die()
     {
+        // ส่งข้อมูลจำนวนมอนสเตอร์ที่ถูกฆ่าไปยัง MonsterSpawner
+        MonsterSpawner monsterSpawner = FindObjectOfType<MonsterSpawner>();
+        if (monsterSpawner != null)
+        {
+            monsterSpawner.MonsterKilled();
+        }
+
         Destroy(gameObject);
     }
 

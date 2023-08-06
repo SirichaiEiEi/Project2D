@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour
             Shoot();
             nextFireTime = Time.time + fireRate;
         }
+        StartCoroutine(StopShootingSound());
 
         if (currentHP <= 0)
         {
@@ -114,6 +115,11 @@ public class PlayerController : MonoBehaviour
         hpText.text = currentHP + " / " + maxHP;
     }
 
+    private IEnumerator StopShootingSound()
+    {
+        yield return new WaitForSeconds(1f);
+        audio.Stop();
+    }
     private void Die()
     {
         SceneManager.LoadSceneAsync(2);
