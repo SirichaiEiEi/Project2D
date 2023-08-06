@@ -59,11 +59,9 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
         {
-            audio.Play();
             Shoot();
             nextFireTime = Time.time + fireRate;
         }
-        StartCoroutine(StopShootingSound());
 
         if (currentHP <= 0)
         {
@@ -94,6 +92,8 @@ public class PlayerController : MonoBehaviour
             bulletController.SetTarget(mousePosition);
         }
         Instantiate(muzzsleFlash, muzzle.position, muzzle.rotation);
+        audio.Play();
+        StartCoroutine(StopShootingSound());
 
     }
 
