@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] FloatingHealthBar healthBar1;
-    public float ClipLength = 1f;
-    public GameObject AudioClip;
+    public AudioClip _sound;    // this lets you drag in an audio file in the inspector
+    private AudioSource audio;
     public float moveSpeed = 5f;
     public TMP_Text hpText;
     public int maxHP = 100; // HP สูงสุดของผู้เล่น
@@ -30,7 +30,16 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-        AudioClip.SetActive(false);
+        if (_sound == null)
+        {
+            Debug.Log("You haven't specified _sound through the inspector");
+            this.enabled = false; //disables this script cause there is no sound loaded to play
+        }
+
+        audio = gameObject.AddComponent<AudioSource>(); //adds an AudioSource to the game object this script is attached to
+        audio.playOnAwake = false;
+        audio.clip = _sound;
+        audio.Stop();
         rb = GetComponent<Rigidbody2D>();
         currentHP = maxHP;
         healthBar1.UpdateHealthBar(currentHP, maxHP);
@@ -50,10 +59,8 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
         {
-            AudioClip.SetActive(true);
-
+            audio.Play();
             Shoot();
-            AudioClip.SetActive(false);
             nextFireTime = Time.time + fireRate;
         }
 
