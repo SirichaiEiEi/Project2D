@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Monster
   - Bullet
+  - Warp
   layers:
   - Default
   - TransparentFX

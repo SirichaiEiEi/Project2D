@@ -12,9 +12,9 @@ EditorBuildSettings:
     path: Assets/2DTopDown.unity
     guid: 17f5970f34fa3a44e9a3ce2a5fdbe44b
   - enabled: 1
-    path: Assets/EndGame.unity
-    guid: 02ada224537a05e408792215bd7a2ad5
-  - enabled: 1
     path: Assets/Madow.unity
     guid: 7d5f61369bf00ac45a28f9ae9ba54c3e
+  - enabled: 1
+    path: Assets/EndGame.unity
+    guid: 02ada224537a05e408792215bd7a2ad5
   m_configObjects: {}

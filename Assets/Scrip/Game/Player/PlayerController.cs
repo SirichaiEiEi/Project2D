@@ -120,6 +120,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         audio.Stop();
     }
+
     private void Die()
     {
         SceneManager.LoadSceneAsync(2);

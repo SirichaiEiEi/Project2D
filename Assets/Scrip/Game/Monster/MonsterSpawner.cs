@@ -8,12 +8,14 @@ public class MonsterSpawner : MonoBehaviour
     public GameObject monsterPrefab; // โปรเฟปฟรีฟาบทหน้าสร้างมอนสเตอร์
     public GameObject randomBox;
     public TMP_Text point;
+    public GameObject warp;
     public float spawnInterval = 5f; // เวลาที่ระหว่างการเกิดมอนสเตอร์ (วินาที)
     public float spawnRadius = 10f; // รัศมีเกิดมอนสเตอร์ (หน่วย)
+ 
     private int monstersKilled = 0;
     private int points = 0;
-
     private Transform playerTransform;
+    private bool isPortalOpen = false;
     private bool isPlayerActive = true; // ตัวแปรสำหรับตรวจสอบว่าผู้เล่นยังใช้งานอยู่หรือไม่
 
     private void Start()
@@ -51,6 +53,16 @@ public class MonsterSpawner : MonoBehaviour
             // รีเซ็ตจำนวนมอนสเตอร์ที่ถูกฆ่าเพื่อนับใหม่ในครั้งถัดไป
             monstersKilled = 0;
         }
+        if (monstersKilled >= 1)
+        {
+            OpenPortal();
+        }
+    }
+
+    public void OpenPortal()
+    {
+        warp.SetActive(true);
+        isPortalOpen = true;
     }
     public void SetPlayerActive(bool isActive)
     {
