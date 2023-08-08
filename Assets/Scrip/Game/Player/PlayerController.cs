@@ -19,10 +19,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject muzzsleFlash;
 
     public int currentHP; // HP ปัจจุบันของผู้เล่น
+    
     private float nextFireTime; // เวลาถัดไปที่สามารถยิงได้
-
     private Rigidbody2D rb;
     private Camera mainCamera;
+    private bool isShooting = false; // ตัวแปรสำหรับตรวจสอบว่ากำลังยิงปืนหรือไม่
+    private float cameraShakeMagnitude = 0.1f; // ระดับความสั่นของกล้อง
+    private float cameraShakeDuration = 0.1f; // ระยะเวลาที่กล้องจะสั่น
+    private Vector3 originalCameraPosition; // ตำแหน่งเริ่มต้นของกล้อง
 
     private void Awake()
     {
@@ -94,7 +98,34 @@ public class PlayerController : MonoBehaviour
         Instantiate(muzzsleFlash, muzzle.position, muzzle.rotation);
         audio.Play();
         StartCoroutine(StopShootingSound());
+        if (!isShooting)
+        {
+            StartCoroutine(CameraShake());
+        }
 
+    }
+
+    private IEnumerator CameraShake()
+    {
+        isShooting = true;
+        originalCameraPosition = mainCamera.transform.localPosition;
+
+        float elapsed = 0.0f;
+
+        while (elapsed < cameraShakeDuration)
+        {
+            float x = Random.Range(-1f, 1f) * cameraShakeMagnitude;
+            float y = Random.Range(-1f, 1f) * cameraShakeMagnitude;
+
+            mainCamera.transform.localPosition = new Vector3(originalCameraPosition.x + x, originalCameraPosition.y + y, originalCameraPosition.z);
+
+            elapsed += Time.deltaTime;
+
+            yield return null;
+        }
+
+        mainCamera.transform.localPosition = originalCameraPosition;
+        isShooting = false;
     }
 
     public void IncreaseHealth(int amount)
