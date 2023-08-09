@@ -39,7 +39,7 @@ public class BulletController : MonoBehaviour
     public void SetTarget(Vector3 target)
     {
         targetPosition = target;
-        damageAmount = Random.Range(1, 11); // สุ่มค่าดาเมทในช่วง 1-10
+        damageAmount = 10; // ดาเมท 10
     }
 }
 
