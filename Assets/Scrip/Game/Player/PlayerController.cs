@@ -157,4 +157,8 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadSceneAsync(2);
         // สามารถเพิ่มโค้ดเพื่อจัดการกับการสิ้นสุดเกมตามต้องการ
     }
+    public void firespeed()
+    {
+        fireRate = 0.2f;
+    }    
 }
