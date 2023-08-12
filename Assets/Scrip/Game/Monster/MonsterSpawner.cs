@@ -11,7 +11,8 @@ public class MonsterSpawner : MonoBehaviour
     public GameObject warp;
     public float spawnInterval = 5f; // เวลาที่ระหว่างการเกิดมอนสเตอร์ (วินาที)
     public float spawnRadius = 10f; // รัศมีเกิดมอนสเตอร์ (หน่วย)
- 
+    public MonsterManager monsterManager;
+
     private int monstersKilled = 0;
     private int points = 0;
     private Transform playerTransform;
@@ -19,6 +20,7 @@ public class MonsterSpawner : MonoBehaviour
     private bool isPlayerActive = true; // ตัวแปรสำหรับตรวจสอบว่าผู้เล่นยังใช้งานอยู่หรือไม่
 
     private void Start()
+
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         InvokeRepeating("SpawnMonster", spawnInterval, spawnInterval);

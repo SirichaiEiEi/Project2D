@@ -17,6 +17,7 @@ public class MonsterController : MonoBehaviour
     private bool isPlayerActive = true;
     public float rotationSpeed = 5f;
     private bool isAttacking = false;
+    public MonsterManager monsterManager;
 
     private void Awake()
     {
@@ -76,7 +77,11 @@ public class MonsterController : MonoBehaviour
         {
             monsterSpawner.MonsterKilled();
         }
-
+        MonsterManager monsterManager = FindObjectOfType<MonsterManager>();
+        if (monsterManager != null)
+        {
+            monsterManager.MonsterKilled1();
+        }
         Destroy(gameObject);
     }
 
