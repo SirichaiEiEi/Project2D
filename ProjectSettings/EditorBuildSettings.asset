@@ -6,15 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Mainmenu2.unity
+    path: Assets/Scenes/Mainmenu2.unity
     guid: cb08cb41bfea1c9408946bd60297ddec
   - enabled: 1
-    path: Assets/2DTopDown.unity
+    path: Assets/Scenes/2DTopDown.unity
     guid: 17f5970f34fa3a44e9a3ce2a5fdbe44b
   - enabled: 1
-    path: Assets/EndGame.unity
+    path: Assets/Scenes/EndGame.unity
     guid: 02ada224537a05e408792215bd7a2ad5
   - enabled: 1
-    path: Assets/Madow.unity
+    path: Assets/Scenes/Madow.unity
     guid: 7d5f61369bf00ac45a28f9ae9ba54c3e
   m_configObjects: {}

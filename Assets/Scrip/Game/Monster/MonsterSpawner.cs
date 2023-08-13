@@ -7,7 +7,6 @@ public class MonsterSpawner : MonoBehaviour
 {
     public GameObject monsterPrefab; // โปรเฟปฟรีฟาบทหน้าสร้างมอนสเตอร์
     public GameObject randomBox;
-    public TMP_Text point;
     public GameObject warp;
     public float spawnInterval = 5f; // เวลาที่ระหว่างการเกิดมอนสเตอร์ (วินาที)
     public float spawnRadius = 10f; // รัศมีเกิดมอนสเตอร์ (หน่วย)
@@ -24,10 +23,6 @@ public class MonsterSpawner : MonoBehaviour
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         InvokeRepeating("SpawnMonster", spawnInterval, spawnInterval);
-    }
-    private void Update()
-    {
-        point.text = points+ "";
     }
 
     private void SpawnMonster()
