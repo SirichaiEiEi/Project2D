@@ -352,6 +352,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &395828845 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 163814877209755551, guid: 90ec8cec27fa32349b54c486fec72444, type: 3}
+  m_PrefabInstance: {fileID: 1598958314}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &395828846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395828845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 072003c47dab4c84885ccfd714e470f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &634806251
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,7 +447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterPrefab: {fileID: 163814877209755551, guid: 90ec8cec27fa32349b54c486fec72444, type: 3}
-  randomBox: {fileID: 6618772346233765381, guid: e699f6b9b69edbf4191527e9615117fa, type: 3}
+  randomBox: {fileID: 8312012635384435398, guid: bc174c5c7deefbd4e9a21835b55a47a5, type: 3}
   warp: {fileID: 1967215399}
   spawnInterval: 5
   spawnRadius: 10
@@ -480,7 +497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterPrefab: {fileID: 8624382614845954985, guid: e1665679e12b4184591d79bc0e34a83a, type: 3}
-  randomBox: {fileID: 6618772346233765381, guid: e699f6b9b69edbf4191527e9615117fa, type: 3}
+  randomBox: {fileID: 8312012635384435398, guid: bc174c5c7deefbd4e9a21835b55a47a5, type: 3}
   warp: {fileID: 1967215399}
   spawnInterval: 5
   spawnRadius: 10
@@ -937,7 +954,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterPrefab: {fileID: 461017320380070816, guid: f28f215877d5e8046b1d2296f446fad6, type: 3}
-  randomBox: {fileID: 6618772346233765381, guid: e699f6b9b69edbf4191527e9615117fa, type: 3}
+  randomBox: {fileID: 8312012635384435398, guid: bc174c5c7deefbd4e9a21835b55a47a5, type: 3}
   warp: {fileID: 1967215399}
   spawnInterval: 5
   spawnRadius: 10

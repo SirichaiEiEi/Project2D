@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public Transform firePoint; // ตำแหน่งที่กระสุนจะถูกสร้าง
     public Transform muzzle;
     [SerializeField] private GameObject muzzsleFlash;
+    public bool hasAntidote = false;
 
     public int currentHP; // HP ปัจจุบันของผู้เล่น
     
@@ -27,6 +28,10 @@ public class PlayerController : MonoBehaviour
     private float cameraShakeMagnitude = 0.1f; // ระดับความสั่นของกล้อง
     private float cameraShakeDuration = 0.1f; // ระยะเวลาที่กล้องจะสั่น
     private Vector3 originalCameraPosition; // ตำแหน่งเริ่มต้นของกล้อง
+    public bool isPoisoned = false;
+    private float poisonDuration = 5f;  // ตัวแปรเก็บระยะเวลาที่ติดพิษ
+    private float poisonDamageTick = 1f;  // ตัวแปรเก็บระยะเวลาสำหรับการทำดาเมจจากพิษ
+
 
     private void Awake()
     {
@@ -160,5 +165,39 @@ public class PlayerController : MonoBehaviour
     public void firespeed()
     {
         fireRate = 0.2f;
-    }    
+    }
+    public void PoisonPlayer()
+    {
+        if (!isPoisoned)
+        {
+            isPoisoned = true;
+            StartCoroutine(PoisonEffect());
+        }
+    }
+
+    public IEnumerator PoisonEffect()
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < poisonDuration)
+        {
+            TakeDamage(1);  // ทำดาเมจทีละ 1
+            yield return new WaitForSeconds(poisonDamageTick);
+            elapsedTime += poisonDamageTick;
+        }
+        isPoisoned = false;
+    }
+
+    public void CollectAntidote()
+    {
+        isPoisoned = false;
+    }
+
+    public void UseAntidote()
+    {
+        if (hasAntidote)
+        {
+            hasAntidote = false;
+        }
+    }
+
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MonsterController : MonoBehaviour
 {
@@ -146,6 +147,11 @@ public class MonsterController : MonoBehaviour
         if (playerController != null)
         {
             playerController.TakeDamage(damageAmount);
+            if (SceneManager.GetActiveScene().name == "Forest" && playerController.isPoisoned)
+            {
+                playerController.isPoisoned = true;
+                playerController.StartCoroutine(playerController.PoisonEffect());
+            }
         }
     }
 
