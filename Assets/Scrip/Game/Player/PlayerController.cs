@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     public Transform firePoint; // ตำแหน่งที่กระสุนจะถูกสร้าง
     public Transform muzzle;
     [SerializeField] private GameObject muzzsleFlash;
-    public bool hasAntidote = false;
 
     public int currentHP; // HP ปัจจุบันของผู้เล่น
     
@@ -28,9 +27,12 @@ public class PlayerController : MonoBehaviour
     private float cameraShakeMagnitude = 0.1f; // ระดับความสั่นของกล้อง
     private float cameraShakeDuration = 0.1f; // ระยะเวลาที่กล้องจะสั่น
     private Vector3 originalCameraPosition; // ตำแหน่งเริ่มต้นของกล้อง
-    public bool isPoisoned = false;
-    private float poisonDuration = 5f;  // ตัวแปรเก็บระยะเวลาที่ติดพิษ
-    private float poisonDamageTick = 1f;  // ตัวแปรเก็บระยะเวลาสำหรับการทำดาเมจจากพิษ
+    private bool isPoisoned = false;
+    private float poisonTimer = 0f;
+    private float poisonInterval = 1f; // ระยะเวลาที่จะลดเลือดเนื่องจากพิษ
+    private float poisonSlowMultiplier = 0.5f; // 80% ของความเร็วเดิม
+    private float originalMoveSpeed; // ความเร็วเดิมของผู้เล่น
+    private bool hasPoisonImmunity = false; // เก็บสถานะว่าผู้เล่นมีการกันพิษหรือไม่
 
 
     private void Awake()
@@ -39,6 +41,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
+        originalMoveSpeed = moveSpeed;
         if (_sound == null)
         {
             Debug.Log("You haven't specified _sound through the inspector");
@@ -75,6 +78,20 @@ public class PlayerController : MonoBehaviour
         if (currentHP <= 0)
         {
             Die();
+        }
+        if (isPoisoned)
+        {
+            if (Time.time >= poisonTimer)
+            {
+                poisonTimer = Time.time + poisonInterval;
+                TakeDamage(1); // ลดเลือดทีละ 1 เนื่องจากพิษ
+            }
+
+            moveSpeed = originalMoveSpeed * poisonSlowMultiplier; // ลดความเร็วเมื่อติดพิษ
+        }
+        else
+        {
+            moveSpeed = originalMoveSpeed; // คืนความเร็วเดิมเมื่อไม่ติดพิษ
         }
     }
 
@@ -166,38 +183,17 @@ public class PlayerController : MonoBehaviour
     {
         fireRate = 0.2f;
     }
-    public void PoisonPlayer()
+    public void ApplyPoison()
     {
-        if (!isPoisoned)
+        if (!hasPoisonImmunity)
         {
             isPoisoned = true;
-            StartCoroutine(PoisonEffect());
+            poisonTimer = Time.time + poisonInterval;
         }
     }
-
-    public IEnumerator PoisonEffect()
+    public void GainPoisonImmunity()
     {
-        float elapsedTime = 0f;
-        while (elapsedTime < poisonDuration)
-        {
-            TakeDamage(1);  // ทำดาเมจทีละ 1
-            yield return new WaitForSeconds(poisonDamageTick);
-            elapsedTime += poisonDamageTick;
-        }
+        hasPoisonImmunity = true;
         isPoisoned = false;
     }
-
-    public void CollectAntidote()
-    {
-        isPoisoned = false;
-    }
-
-    public void UseAntidote()
-    {
-        if (hasAntidote)
-        {
-            hasAntidote = false;
-        }
-    }
-
 }

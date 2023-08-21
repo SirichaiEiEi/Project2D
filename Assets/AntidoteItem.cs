@@ -11,8 +11,11 @@ public class AntidoteItem : MonoBehaviour
             PlayerController playerController = collision.GetComponent<PlayerController>();
             if (playerController != null)
             {
-                playerController.CollectAntidote(); // กันพิษ
-                Destroy(gameObject); // ทำลายไอเท็มหลังจากใช้งาน
+                // เรียกใช้ฟังก์ชันที่เพิ่มสถานะการกันพิษให้ผู้เล่น
+                playerController.GainPoisonImmunity();
+
+                // ทำให้ไอเท็มหายไป
+                Destroy(gameObject);
             }
         }
     }

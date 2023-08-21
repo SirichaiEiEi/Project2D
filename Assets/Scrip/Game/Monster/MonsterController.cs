@@ -125,6 +125,12 @@ public class MonsterController : MonoBehaviour
 
         DealDamageToPlayer();
 
+        PlayerController playerController = playerTransform.GetComponent<PlayerController>();
+        if (playerController != null)
+        {
+            playerController.ApplyPoison();
+        }
+
         // ตรวจสอบระยะห่างระหว่างมอนสเตอร์และผู้เล่นอีกครั้ง
         // หากยังคงอยู่ใกล้กันให้ทำดาเมทต่อเนื่อง โดยเริ่ม Coroutine AttackCoroutine ใหม่
         Vector2 direction = playerTransform.position - (Vector3)rb.position;
@@ -147,12 +153,8 @@ public class MonsterController : MonoBehaviour
         if (playerController != null)
         {
             playerController.TakeDamage(damageAmount);
-            if (SceneManager.GetActiveScene().name == "Forest" && playerController.isPoisoned)
-            {
-                playerController.isPoisoned = true;
-                playerController.StartCoroutine(playerController.PoisonEffect());
-            }
         }
+
     }
 
     public void SetPlayerActive(bool isActive)
