@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] FloatingHealthBar healthBar1;
     public AudioClip _sound;    // this lets you drag in an audio file in the inspector
+    public static PlayerController Instance;
     private AudioSource audio;
     public float moveSpeed = 5f;
     public TMP_Text hpText;
@@ -41,6 +42,15 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
+        if(Instance != null)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
+        Instance = this;
+
+        GameObject.DontDestroyOnLoad(this.gameObject);
         originalMoveSpeed = moveSpeed;
         if (_sound == null)
         {

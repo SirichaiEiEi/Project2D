@@ -128,7 +128,11 @@ public class MonsterController : MonoBehaviour
         PlayerController playerController = playerTransform.GetComponent<PlayerController>();
         if (playerController != null)
         {
-            playerController.ApplyPoison();
+            // ตรวจสอบว่าอยู่ในฉาก 'Forest' หรือไม่
+            if (SceneManager.GetActiveScene().name == "Forest")
+            {
+                playerController.ApplyPoison();
+            }
         }
 
         // ตรวจสอบระยะห่างระหว่างมอนสเตอร์และผู้เล่นอีกครั้ง

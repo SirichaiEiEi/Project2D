@@ -50,7 +50,7 @@ public class MonsterSpawner : MonoBehaviour
             // รีเซ็ตจำนวนมอนสเตอร์ที่ถูกฆ่าเพื่อนับใหม่ในครั้งถัดไป
             monstersKilled = 0;
         }
-        if (points >= 20 && !isPortalOpen) // เมื่อฆ่ามอนเตอร์ครบ 20 ตัวและยังไม่เปิดวาป
+        if (points >= 1 && !isPortalOpen) // เมื่อฆ่ามอนเตอร์ครบ 20 ตัวและยังไม่เปิดวาป
         {
             OpenPortal();
         }
