@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public int maxHP = 100; // HP สูงสุดของผู้เล่น
     public float fireRate = 0.001f; // อัตราการยิง (วินาทีต่อกระสุน)
     public GameObject bulletPrefab; // โปรเฟปฟรีฟาบทหน้ากระสุน
+    public GameObject bulletWater; // กระสุนน้ำ
     public Transform firePoint; // ตำแหน่งที่กระสุนจะถูกสร้าง
     public Transform muzzle;
     [SerializeField] private GameObject muzzsleFlash;
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
     private float poisonSlowMultiplier = 0.5f; // 80% ของความเร็วเดิม
     private float originalMoveSpeed; // ความเร็วเดิมของผู้เล่น
     private bool hasPoisonImmunity = false; // เก็บสถานะว่าผู้เล่นมีการกันพิษหรือไม่
+    private bool hasWaterBulletItem = false;
 
 
     private void Awake()
@@ -205,5 +207,16 @@ public class PlayerController : MonoBehaviour
     {
         hasPoisonImmunity = true;
         isPoisoned = false;
+    }
+
+    public void waterarmor()
+    {
+        bulletPrefab = bulletWater;
+        hasWaterBulletItem = true;
+    }
+
+    public bool HasWaterBulletItem()
+    {
+        return hasWaterBulletItem;
     }
 }

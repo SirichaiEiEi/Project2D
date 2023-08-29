@@ -1,16 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class BulletController : MonoBehaviour
+public class WaterBulletController : MonoBehaviour
 {
-    public float speed = 10f; // ความเร็วของกระสุน
-    public float destroyDelay = 5f; // เวลาที่เกิดกระสุน (วินาที)
+    public float speed = 10f;
+    public float destroyDelay = 5f;
     public GameObject hitEffect;
     private Vector3 targetPosition;
-    private int damageAmount; // จำนวนดาเมทที่กระสุนจะส่งให้มอนสเตอร์
+    private int damageAmount;
     private Rigidbody2D rb;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -29,31 +30,16 @@ public class BulletController : MonoBehaviour
                 GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
                 Destroy(effect, 0.5f);
 
-                int modifiedDamageAmount = damageAmount;
+                monsterController.TakeDamage(damageAmount); // Regular damage
 
-                PlayerController playerController = FindObjectOfType<PlayerController>();
-                if (playerController != null && playerController.HasWaterBulletItem() && SceneManager.GetActiveScene().name == "Sand")
-                {
-                    modifiedDamageAmount *= 2; // Double damage
-                }
-
-                monsterController.TakeDamage(modifiedDamageAmount);
             }
 
             Destroy(gameObject);
         }
     }
-
-
-
     public void SetTarget(Vector3 target)
     {
         targetPosition = target;
         damageAmount = 10; // ดาเมท 10
     }
 }
-
-
-
-
-
