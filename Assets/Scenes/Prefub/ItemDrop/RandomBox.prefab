@@ -146,5 +146,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd956e6f4b4e2a4c9a5f83893882108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 4751466199550676185, guid: 0ad9840a42bedd14d895fd35a5f5a02b, type: 3}
+  itemSand: {fileID: 4751466199550676185, guid: 0ad9840a42bedd14d895fd35a5f5a02b, type: 3}
   dropChance: 100

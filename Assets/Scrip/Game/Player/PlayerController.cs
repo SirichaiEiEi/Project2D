@@ -16,12 +16,13 @@ public class PlayerController : MonoBehaviour
     public float fireRate = 0.001f; // อัตราการยิง (วินาทีต่อกระสุน)
     public GameObject bulletPrefab; // โปรเฟปฟรีฟาบทหน้ากระสุน
     public GameObject bulletWater; // กระสุนน้ำ
+    public GameObject bulletFire; // กระสุนน้ำ
     public Transform firePoint; // ตำแหน่งที่กระสุนจะถูกสร้าง
     public Transform muzzle;
     [SerializeField] private GameObject muzzsleFlash;
 
     public int currentHP; // HP ปัจจุบันของผู้เล่น
-    
+
     private float nextFireTime; // เวลาถัดไปที่สามารถยิงได้
     private Rigidbody2D rb;
     private Camera mainCamera;
@@ -36,7 +37,21 @@ public class PlayerController : MonoBehaviour
     private float originalMoveSpeed; // ความเร็วเดิมของผู้เล่น
     private bool hasPoisonImmunity = false; // เก็บสถานะว่าผู้เล่นมีการกันพิษหรือไม่
     private bool hasWaterBulletItem = false;
-
+    private bool hasFireBulletItem = false;
+    private bool isReducingSpeed = false; // เพิ่มตัวแปรเพื่อตรวจสอบว่ากำลังลดความเร็วอย่างต่อเนื่องหรือไม่
+    private float slowMoveSpeedMultiplier = 0.5f; // 50% ของความเร็วเดิม
+    private float timeToReachHalfSpeed = 10.0f; // เวลาที่ใช้ในการลดความเร็วไปยัง 50%
+    private float slowMoveSpeedDamageInterval = 1.0f; // ระยะเวลาที่ลดเลือดเนื่องจากความเร็วช้า
+    private float slowMoveSpeedDamageTimer = 0f; // ตัวจับเวลาเมื่อลดเลือดเนื่องจากความเร็วช้า
+    private int slowMoveSpeedDamageAmount = 1; // จำนวนเลือดที่ลดเมื่อความเร็วช้า
+    private float currentMoveSpeed; // ความเร็วปัจจุบัน
+    private float startReducingSpeedTime; // เวลาที่เริ่มลดความเร็ว
+    private float slowMoveSpeedInterval; // ระยะเวลาระหว่างการลดความเร็ว
+    private float slowMoveSpeedTimer = 0f; // ตัวจับเวลาเมื่อลดความเร็ว
+    private bool hasSnowGear = false;
+    private bool hasHeatArmor = false; // เก็บสถานะว่าผู้เล่นมีเกราะกันความร้อนหรือไม่
+    private float sandDamageInterval = 1.0f; // ระยะเวลาที่จะลดเลือดเนื่องจากแมพ "Sand"
+    private float sandDamageTimer = 0f; // ตัวจับเวลาเมื่อลดเลือดเนื่องจากแมพ "Sand"
 
     private void Awake()
     {
@@ -104,6 +119,56 @@ public class PlayerController : MonoBehaviour
         else
         {
             moveSpeed = originalMoveSpeed; // คืนความเร็วเดิมเมื่อไม่ติดพิษ
+        }
+        if (SceneManager.GetActiveScene().name == "Snow" && !hasSnowGear)
+        {
+            if (!isReducingSpeed)
+            {
+                // หากยังไม่ได้เริ่มการลดความเร็ว ให้เริ่มต้นการลดความเร็ว
+                isReducingSpeed = true;
+                currentMoveSpeed = moveSpeed; // เซ็ตความเร็วปัจจุบันเป็นความเร็วปัจจุบัน
+                startReducingSpeedTime = Time.time;
+            }
+
+            // คำนวณความเร็วใหม่
+            float elapsedTime = Time.time - startReducingSpeedTime;
+            currentMoveSpeed = Mathf.Lerp(moveSpeed, moveSpeed * slowMoveSpeedMultiplier, elapsedTime / timeToReachHalfSpeed);
+            moveSpeed = currentMoveSpeed;
+
+            // เริ่มต้นตัวจับเวลาลดเลือดเนื่องจากความเร็วช้า
+            if (Time.time >= slowMoveSpeedDamageTimer)
+            {
+                slowMoveSpeedDamageTimer = Time.time + slowMoveSpeedDamageInterval;
+                TakeDamage(slowMoveSpeedDamageAmount); // ลดเลือดเนื่องจากความเร็วช้า
+            }
+        }
+        else if (SceneManager.GetActiveScene().name == "Sand")
+        {
+            // อยู่ในแมพ "Sand"
+            if (!hasHeatArmor) // ถ้าไม่มีเกราะกันความร้อน
+            {
+                // ลดเลือดทีละ 1 หน่วย
+                if (Time.time >= sandDamageTimer)
+                {
+                    sandDamageTimer = Time.time + sandDamageInterval;
+                    TakeDamage(1); // ลดเลือดทีละ 1 หน่วยเมื่ออยู่ในแมพ "Sand"
+                }
+            }
+        }
+        else
+        {
+            // ไม่ใช่แมพ "Snow" หรือ "Sand" หรือมีชุดกันความเย็น ให้ใช้ความเร็วเดิม
+            moveSpeed = originalMoveSpeed;
+
+            // ถ้าเคยเริ่มการลดความเร็ว ก็ควรเริ่มต้นการลดความเร็วใหม่
+            if (isReducingSpeed)
+            {
+                isReducingSpeed = false;
+                startReducingSpeedTime = 0f;
+            }
+
+            // ไม่ต้องลดเลือด
+            sandDamageTimer = Time.time;
         }
     }
 
@@ -214,9 +279,34 @@ public class PlayerController : MonoBehaviour
         bulletPrefab = bulletWater;
         hasWaterBulletItem = true;
     }
+    public void firearmor()
+    {
+        bulletPrefab = bulletFire;
+        hasFireBulletItem = true;
+        hasWaterBulletItem = false;
+    }
 
     public bool HasWaterBulletItem()
     {
         return hasWaterBulletItem;
+    }
+
+    public bool HasFireBulletItem()
+    {
+        return hasFireBulletItem;
+    }
+    public void EquipSnowGear()
+    {
+        // เรียกเมื่อผู้เล่นได้รับชุดกันความเย็น
+        hasSnowGear = true;
+    }
+    public void GainHeatArmor()
+    {
+        hasHeatArmor = true;
+        // สามารถเรียกฟังก์ชันนี้เมื่อผู้เล่นได้รับเกราะกันความร้อน
+    }
+    public void LoseHeatArmor()
+    {
+        hasHeatArmor = false;
     }
 }

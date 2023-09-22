@@ -40,16 +40,6 @@ public class MonsterController : MonoBehaviour
         {
             Vector2 direction = playerTransform.position - (Vector3)rb.position;
             rb.velocity = direction.normalized * moveSpeed;
-
-            // หมุนให้มอนสเตอร์หันไปทางผู้เล่น
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            rb.rotation = Mathf.LerpAngle(rb.rotation, angle - 90f, Time.deltaTime * rotationSpeed);
-
-            // ตรวจสอบสถานะของการเคลื่อนที่ หากไม่มีการเคลื่อนที่ให้หยุดการเคลื่อนที่
-            if (direction.sqrMagnitude < 0.1f)
-            {
-                rb.velocity = Vector2.zero;
-            }
         }
         else
         {
@@ -82,6 +72,11 @@ public class MonsterController : MonoBehaviour
         if (monsterManager != null)
         {
             monsterManager.MonsterKilled1();
+        }
+        Sand sand = FindObjectOfType<Sand>();
+        if (sand != null)
+        {
+            sand.kills();
         }
         Destroy(gameObject);
     }

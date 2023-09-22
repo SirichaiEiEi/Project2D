@@ -36,6 +36,10 @@ public class BulletController : MonoBehaviour
                 {
                     modifiedDamageAmount *= 2; // Double damage
                 }
+                if (playerController != null && playerController.HasFireBulletItem() && SceneManager.GetActiveScene().name == "Snow")
+                {
+                    modifiedDamageAmount *= 2;
+                }
 
                 monsterController.TakeDamage(modifiedDamageAmount);
             }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DropBox : MonoBehaviour
 {
-    public GameObject itemPrefab; // ตัวแปรเก็บ Prefab ของไอเท็มที่จะดรอป
+    public GameObject itemSand; // ตัวแปรเก็บ Prefab ของไอเท็มที่จะดรอป
     public int dropChance = 100; // ความน่าจะเป็นในการดรอปไอเท็ม (ในหน่วยเปอร์เซ็นต์)
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -27,7 +27,7 @@ public class DropBox : MonoBehaviour
     private void DropItem()
     {
         // สร้าง Object ของไอเท็มที่จะดรอปที่ตำแหน่งของกล่องดรอป
-        Instantiate(itemPrefab, transform.position, Quaternion.identity);
+        Instantiate(itemSand, transform.position, Quaternion.identity);
     }
 }
 

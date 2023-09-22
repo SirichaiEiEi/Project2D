@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
 public class MonsterManager : MonoBehaviour
 {
     public GameObject spawner1;
@@ -31,6 +30,11 @@ public class MonsterManager : MonoBehaviour
             spawner2.SetActive(false);
             spawner3.SetActive(true);
         }
+    }
+
+    public int GetKilledMonstersCount()
+    {
+        return monstersKilled1;
     }
 
     private void Update()
