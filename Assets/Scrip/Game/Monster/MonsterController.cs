@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class MonsterController : MonoBehaviour
 {
     [SerializeField] FloatingHealthBar healthBar;
-    public float moveSpeed = 1f;
+    private float moveSpeed = 3f;
     public int damageAmount = 10;
     public int maxHP = 100;
     public int currentHP;
@@ -77,6 +77,11 @@ public class MonsterController : MonoBehaviour
         if (sand != null)
         {
             sand.kills();
+        }
+        ArmorGear armorGear = FindObjectOfType<ArmorGear>();
+        if (armorGear != null)
+        {
+            armorGear.kills();
         }
         Destroy(gameObject);
     }

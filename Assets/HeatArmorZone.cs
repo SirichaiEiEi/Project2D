@@ -5,8 +5,13 @@ using UnityEngine;
 public class HeatArmorZone : MonoBehaviour
 {
     private bool isInHeatZone = false;
-    public GameObject heater;
+    private GameObject heater;
 
+    private void Start()
+    {
+        heater = GameObject.Find("Armor");
+        heater.SetActive(false);
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))

@@ -4,7 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class warp : MonoBehaviour
 {
+    private GameObject Armor;
     // Start is called before the first frame update
+    private void Start()
+    {
+        Armor = GameObject.Find("Armor");
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -13,6 +18,10 @@ public class warp : MonoBehaviour
             if (playerController != null)
             {
                 LoadNextLevel();
+                if (Armor != null)
+                {
+                    Armor.SetActive(true);
+                }
             }
         }
     }
