@@ -200,12 +200,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87cabef79ad068a4c8a3acd559c50072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hiddenLayerName: HiddenMonster
   healthBar: {fileID: 0}
-  moveSpeed: 1
   damageAmount: 10
   maxHP: 100
   currentHP: 0
   rotationSpeed: 5
+  monsterManager: {fileID: 0}
 --- !u!1 &8318771275905188513
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,7 +216,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8318771275905188526}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +255,7 @@ GameObject:
   - component: {fileID: 8318771276303117980}
   - component: {fileID: 8318771276303117978}
   - component: {fileID: 8318771276303117981}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -358,7 +359,7 @@ GameObject:
   - component: {fileID: 8318771276832305018}
   - component: {fileID: 8318771276832305016}
   - component: {fileID: 8318771276832305019}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -435,7 +436,7 @@ GameObject:
   - component: {fileID: 8318771277240261156}
   - component: {fileID: 8318771277240261159}
   - component: {fileID: 8318771277240261158}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -535,7 +536,7 @@ GameObject:
   - component: {fileID: 8318771277554835085}
   - component: {fileID: 8318771277554835083}
   - component: {fileID: 8318771277554835082}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}

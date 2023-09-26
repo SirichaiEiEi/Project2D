@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -11,16 +12,17 @@ public class CameraFollow : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 desiredPosition = target.position + offset;
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-        transform.position = new Vector3(smoothedPosition.x, smoothedPosition.y, transform.position.z);
+        // ตรวจสอบชื่อฉากปัจจุบัน
+        string currentSceneName = SceneManager.GetActiveScene().name;
 
-        transform.LookAt(target);
+        // หากไม่ได้อยู่ในฉาก "EndGame" หรือ "Mainmenu2" ให้สคริปต์ทำงาน
+        if (currentSceneName != "EndGame" && currentSceneName != "Mainmenu2")
+        {
+            Vector3 desiredPosition = target.position + offset;
+            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+            transform.position = new Vector3(smoothedPosition.x, smoothedPosition.y, transform.position.z);
+
+            transform.LookAt(target);
+        }
     }
 }
-
-
-
-
-
-

@@ -87,6 +87,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (SceneManager.GetActiveScene().name == "EndGame" || SceneManager.GetActiveScene().name == "Mainmenu2")
+        {
+            Destroy(gameObject);
+        }
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
 
@@ -253,7 +257,7 @@ public class PlayerController : MonoBehaviour
 
     private void Die()
     {
-        SceneManager.LoadSceneAsync(2);
+        SceneManager.LoadSceneAsync(5);
         // สามารถเพิ่มโค้ดเพื่อจัดการกับการสิ้นสุดเกมตามต้องการ
     }
     public void firespeed()

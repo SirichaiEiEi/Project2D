@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class MonsterController : MonoBehaviour
 {
+    public string hiddenLayerName = "HiddenMonster"; // ชื่อ Layer ที่ใช้ซ่อนมอนเตอร์
+    private int defaultLayer; // Layer ที่ใช้ในสถานการณ์ปกติ
     [SerializeField] FloatingHealthBar healthBar;
     private float moveSpeed = 3f;
     public int damageAmount = 10;
@@ -28,6 +30,7 @@ public class MonsterController : MonoBehaviour
 
     private void Start()
     {
+        defaultLayer = gameObject.layer;
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
         currentHP = maxHP;
@@ -165,4 +168,22 @@ public class MonsterController : MonoBehaviour
     {
         isPlayerActive = isActive;
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("HideZone"))
+        {
+            // เมื่อมอนเตอร์เข้าสู่พื้นที่ที่คุณต้องการให้ซ่อน
+            gameObject.layer = LayerMask.NameToLayer(hiddenLayerName);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("HideZone"))
+        {
+            // เมื่อมอนเตอร์ออกจากพื้นที่ที่คุณต้องการให้ซ่อน
+            gameObject.layer = defaultLayer; // คืนสถานะ Layer กลับไปเป็นปกติ
+        }
+    }
+
 }
