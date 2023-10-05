@@ -334,6 +334,8 @@ MonoBehaviour:
   maxHP: 100
   fireRate: 0.5
   bulletPrefab: {fileID: 6223288229753796551, guid: c9595727990faa54e87205edd478342c, type: 3}
+  bulletWater: {fileID: 0}
+  bulletFire: {fileID: 0}
   firePoint: {fileID: 697279995122870322}
   muzzle: {fileID: 697279995122870322}
   muzzsleFlash: {fileID: 746556340492983439, guid: e8652b87a7964374ea3cf461db6b1560, type: 3}
@@ -602,12 +604,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cde2973a85436dc49886e4fd4d0d4045, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ea88e67faa9e70948bd93afa955431a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 0.8828125}
+  m_Size: {x: 3.12, y: 2.06}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
