@@ -9,14 +9,16 @@ public class MonsterSpawner : MonoBehaviour
     public GameObject monsterPrefab; // โปรเฟปฟรีฟาบทหน้าสร้างมอนสเตอร์
     public GameObject randomBox;
     public GameObject warp;
-    private float spawnInterval = 1f; // เวลาที่ระหว่างการเกิดมอนสเตอร์ (วินาที)
+    private float spawnInterval = 3f; // เวลาที่ระหว่างการเกิดมอนสเตอร์ (วินาที)
     private float spawnRadius = 5f; // รัศมีเกิดมอนสเตอร์ (หน่วย)
     public MonsterManager monsterManager;
+    public GameObject Boss;
 
     private int monstersKilled = 0;
     private int points = 0;
     private Transform playerTransform;
     private bool isPortalOpen = false;
+    private bool isBoss = false;
     private bool isPlayerActive = true; // ตัวแปรสำหรับตรวจสอบว่าผู้เล่นยังใช้งานอยู่หรือไม่
 
     private void Start()
@@ -52,7 +54,7 @@ public class MonsterSpawner : MonoBehaviour
             monstersKilled = 0;
         }
         Forest forest = FindObjectOfType<Forest>();
-        if (points >= 20 && !isPortalOpen) // เมื่อฆ่ามอนเตอร์ครบ 20 ตัวและยังไม่เปิดวาป
+        if (points >= 30 && !isPortalOpen) // เมื่อฆ่ามอนเตอร์ครบ 20 ตัวและยังไม่เปิดวาป
         {
             if( SceneManager.GetActiveScene().name == "Forest")
             {
@@ -60,6 +62,16 @@ public class MonsterSpawner : MonoBehaviour
             }
             OpenPortal();
         }
+        if(points >= 20 && !isBoss)
+        {
+            BossGen();
+        }
+    }
+
+    public void BossGen()
+    {
+        Boss.SetActive(true);
+        isBoss = true;
     }
 
     public void OpenPortal()

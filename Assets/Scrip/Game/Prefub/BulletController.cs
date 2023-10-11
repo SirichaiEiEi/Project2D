@@ -24,7 +24,8 @@ public class BulletController : MonoBehaviour
         if (collision.CompareTag("Monster"))
         {
             MonsterController monsterController = collision.GetComponent<MonsterController>();
-            if (monsterController != null)
+            MosterRanger mosterRanger = collision.GetComponent<MosterRanger>();
+            if (monsterController != null || mosterRanger != null)
             {
                 GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
                 Destroy(effect, 0.5f);
@@ -41,7 +42,14 @@ public class BulletController : MonoBehaviour
                     modifiedDamageAmount *= 2;
                 }
 
-                monsterController.TakeDamage(modifiedDamageAmount);
+                if (monsterController != null)
+                {
+                    monsterController.TakeDamage(modifiedDamageAmount);
+                }
+                if (mosterRanger != null)
+                {
+                    mosterRanger.TakeDamage(modifiedDamageAmount);
+                }
             }
 
             Destroy(gameObject);

@@ -400,6 +400,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -7072862252212713667, guid: d35c7ea398d46964ab3c33c7e536e8a5, type: 3}
+      propertyPath: maxHP
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: -7072862252212713667, guid: d35c7ea398d46964ab3c33c7e536e8a5, type: 3}
       propertyPath: firePoint
       value: 
       objectReference: {fileID: 1929570963}
@@ -1212,6 +1216,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -7072862252212713667, guid: d35c7ea398d46964ab3c33c7e536e8a5, type: 3}
+      propertyPath: maxHP
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: -7072862252212713667, guid: d35c7ea398d46964ab3c33c7e536e8a5, type: 3}
       propertyPath: firePoint
       value: 
       objectReference: {fileID: 1845898253}
@@ -1284,6 +1292,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7072862252212713667, guid: d35c7ea398d46964ab3c33c7e536e8a5, type: 3}
+      propertyPath: maxHP
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: -7072862252212713667, guid: d35c7ea398d46964ab3c33c7e536e8a5, type: 3}
       propertyPath: firePoint
       value: 
@@ -1428,6 +1440,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7072862252212713667, guid: d35c7ea398d46964ab3c33c7e536e8a5, type: 3}
+      propertyPath: maxHP
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: -7072862252212713667, guid: d35c7ea398d46964ab3c33c7e536e8a5, type: 3}
       propertyPath: firePoint
       value: 

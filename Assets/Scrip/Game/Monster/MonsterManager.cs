@@ -20,14 +20,14 @@ public class MonsterManager : MonoBehaviour
         monstersKilled1++;
         points++;
 
-        if (monstersKilled1 >= 20)
+        if (monstersKilled1 >= 10)
         {
-            spawner1.SetActive(false);
+            spawner1.SetActive(true);
             spawner2.SetActive(true);
         }
-        if (monstersKilled1 >= 30)
+        if (monstersKilled1 >= 20)
         {
-            spawner2.SetActive(false);
+            spawner2.SetActive(true);
             spawner3.SetActive(true);
         }
     }
